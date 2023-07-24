@@ -53,4 +53,4 @@ return new class extends Migration
     {
         Schema::dropIfExists(config('subscriptions.tables.plans'));
     }
-}
+};
