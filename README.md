@@ -87,7 +87,7 @@ That's it, we only have to use that trait in our User model! Now your users may 
 ### Create a Plan
 
 ```php
-$plan = app('subscriptions.plan')->create([
+$plan = \Samehdoush\Subscriptions\Models\Plan::create([
     'name' => 'Pro',
     'description' => 'Pro plan',
     'price' => 9.99,
@@ -114,7 +114,7 @@ $plan->features()->saveMany([
 You can query the plan for further details, using the intuitive API as follows:
 
 ```php
-$plan = app('subscriptions.plan')->find(1);
+$plan = \Samehdoush\Subscriptions\Models\Plan::find(1);
 
 // Get all plan features                
 $plan->features;
@@ -143,10 +143,10 @@ Say you want to show the value of the feature _pictures_per_listing_ from above.
 $amountOfPictures = $plan->getFeatureBySlug('pictures_per_listing')->value;
 
 // Query the feature itself directly
-$amountOfPictures = app('subscriptions.plan_feature')->where('slug', 'pictures_per_listing')->first()->value;
+$amountOfPictures = \Samehdoush\Subscriptions\Models\PlanFeature::where('slug', 'pictures_per_listing')->first()->value;
 
 // Get feature value through the subscription instance
-$amountOfPictures = app('subscriptions.plan_subscription')->find(1)->getFeatureValue('pictures_per_listing');
+$amountOfPictures = \Samehdoush\Subscriptions\Models\PlanSubscription::find(1)->getFeatureValue('pictures_per_listing');
 ```
 
 ### Create a Subscription
@@ -155,7 +155,7 @@ You can subscribe a user to a plan by using the `newSubscription()` function ava
 
 ```php
 $user = User::find(1);
-$plan = app('subscriptions.plan')->find(1);
+$plan = \Samehdoush\Subscriptions\Models\Plan::find(1);
 
 $user->newPlanSubscription('main', $plan);
 ```
@@ -167,8 +167,8 @@ The first argument passed to `newSubscription` method should be the title of the
 You can change subscription plan easily as follows:
 
 ```php
-$plan = app('subscriptions.plan')->find(2);
-$subscription = app('subscriptions.plan_subscription')->find(1);
+$plan = \Samehdoush\Subscriptions\Models\Plan::find(2);
+$subscription = \Samehdoush\Subscriptions\Models\PlanSubscription::find(1);
 
 // Change subscription plan
 $subscription->changePlan($plan);
@@ -182,7 +182,7 @@ Plan features are great for fine-tuning subscriptions, you can top-up certain fe
 
 ```php
 // Find plan feature
-$feature = app('subscriptions.plan_feature')->where('name', 'listing_duration_days')->first();
+$feature = \Samehdoush\Subscriptions\Models\PlanFeature::where('name', 'listing_duration_days')->first();
 
 // Get feature reset date
 $feature->getResetDate(new \Carbon\Carbon());
@@ -294,23 +294,23 @@ $user->planSubscription('main')->cancel(true);
 
 ```php
 // Get subscriptions by plan
-$subscriptions = app('subscriptions.plan_subscription')->byPlanId($plan_id)->get();
+$subscriptions = \Samehdoush\Subscriptions\Models\PlanSubscription::byPlanId($plan_id)->get();
 
 // Get bookings of the given user
 $user = \App\Models\User::find(1);
-$bookingsOfSubscriber = app('subscriptions.plan_subscription')->ofSubscriber($user)->get(); 
+$bookingsOfSubscriber = \Samehdoush\Subscriptions\Models\PlanSubscription::ofSubscriber($user)->get(); 
 
 // Get subscriptions with trial ending in 3 days
-$subscriptions = app('subscriptions.plan_subscription')->findEndingTrial(3)->get();
+$subscriptions = \Samehdoush\Subscriptions\Models\PlanSubscription::findEndingTrial(3)->get();
 
 // Get subscriptions with ended trial
-$subscriptions = app('subscriptions.plan_subscription')->findEndedTrial()->get();
+$subscriptions = \Samehdoush\Subscriptions\Models\PlanSubscription::findEndedTrial()->get();
 
 // Get subscriptions with period ending in 3 days
-$subscriptions = app('subscriptions.plan_subscription')->findEndingPeriod(3)->get();
+$subscriptions = \Samehdoush\Subscriptions\Models\PlanSubscription::findEndingPeriod(3)->get();
 
 // Get subscriptions with ended period
-$subscriptions = app('subscriptions.plan_subscription')->findEndedPeriod()->get();
+$subscriptions = \Samehdoush\Subscriptions\Models\PlanSubscription::findEndedPeriod()->get();
 ```
 
 ### Models
