@@ -25,7 +25,11 @@ You can install the package via composer:
 ```bash
 composer require samehdoush/subscriptions
 ```
-
+## Auto install
+```bash
+php artisan subscriptions:install
+```
+## OR 
 You can publish and run the migrations with:
 
 ```bash
