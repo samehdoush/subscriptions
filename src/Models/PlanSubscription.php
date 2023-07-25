@@ -89,13 +89,10 @@ class PlanSubscription extends Model
         'ends_at',
         'cancels_at',
         'canceled_at',
-        'stripe_id',
-        'stripe_status',
-        'stripe_price',
+
         'price',
         'currency',
-        'payment_type',
-        'status',
+
     ];
 
     /**
@@ -564,7 +561,19 @@ class PlanSubscription extends Model
      */
     public function getFeatureRemainings(string $featureSlug): int
     {
-        return $this->getFeatureValue($featureSlug) - $this->getFeatureUsage($featureSlug);
+        // if $this->getFeatureValue($featureSlug) equals -1 then it's unlimited
+        if ($this->getFeatureValue($featureSlug) == '-1' || $this->getFeatureValue($featureSlug) == -1) {
+            return 999999999;
+        }
+        return $this->getFeatureValue($featureSlug)  - $this->getFeatureUsage($featureSlug);
+    }
+    public function getFeatureRemainingsOrText(string $featureSlug): int
+    {
+        // if $this->getFeatureValue($featureSlug) equals -1 then it's unlimited
+        if ($this->getFeatureValue($featureSlug) == '-1') {
+            return 'Unlimited';
+        }
+        return $this->getFeatureValue($featureSlug)  - $this->getFeatureUsage($featureSlug);
     }
 
     /**

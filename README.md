@@ -210,6 +210,7 @@ Other feature methods on the user subscription instance are:
 
 - `getFeatureUsage`: returns how many times the user has used a particular feature.
 - `getFeatureRemainings`: returns available uses for a particular feature.
+- `getFeatureRemainingsOrText `: returns available uses for a particular feature but if -1 return text unlimited.
 - `getFeatureValue`: returns the feature value.
 
 > All methods share the same signature: e.g. `$user->planSubscription('main')->getFeatureUsage('listings');`.

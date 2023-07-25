@@ -27,13 +27,9 @@ return new class extends Migration
             $table->dateTime('ends_at')->nullable();
             $table->dateTime('cancels_at')->nullable();
             $table->dateTime('canceled_at')->nullable();
-            $table->string('stripe_id')->unique();
-            $table->string('stripe_status');
-            $table->string('stripe_price')->nullable();
             $table->double('price')->nullable();
             $table->string('currency')->nullable();
-            $table->string('payment_type')->nullable();
-            $table->string('status')->default('Waiting');
+
             $table->string('timezone')->nullable();
             $table->timestamps();
             $table->softDeletes();
