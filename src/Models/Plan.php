@@ -175,7 +175,7 @@ class Plan extends Model implements Sortable
     {
         $this->setTable(config('subscriptions.tables.plans'));
         $this->mergeRules([
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('subscriptions.tables.plans').',slug',
+            'slug' => 'required|alpha_dash|max:150|unique:' . config('subscriptions.tables.plans') . ',slug',
             'name' => 'required|string|strip_tags|max:150',
             'description' => 'nullable|string|max:32768',
             'is_active' => 'sometimes|boolean',
@@ -219,9 +219,9 @@ class Plan extends Model implements Sortable
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-                          ->doNotGenerateSlugsOnUpdate()
-                          ->generateSlugsFrom('name')
-                          ->saveSlugsTo('slug');
+            ->doNotGenerateSlugsOnUpdate()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 
     /**
@@ -234,6 +234,28 @@ class Plan extends Model implements Sortable
         return $this->hasMany(config('subscriptions.models.plan_feature'), 'plan_id', 'id');
     }
 
+    /**
+     * Get feature value.
+     *
+     * @param string $featureSlug
+     *
+     * @return mixed
+     */
+    public function getFeatureValue(string $featureSlug)
+    {
+        $feature = $this->features()->where('slug', $featureSlug)->first();
+
+        return $feature->value ?? null;
+    }
+    public function getFeatureValueOrText(string $featureSlug)
+    {
+        $value = $this->getFeatureValue($featureSlug);
+        // if $this->getFeatureValue($featureSlug) equals -1 then it's unlimited
+        if ($value == '-1') {
+            return 'Unlimited';
+        }
+        return $value;
+    }
     /**
      * The plan may have many subscriptions.
      *

@@ -592,10 +592,11 @@ class PlanSubscription extends Model
     }
     public function getFeatureValueOrText(string $featureSlug)
     {
+        $value = $this->getFeatureValue($featureSlug);
         // if $this->getFeatureValue($featureSlug) equals -1 then it's unlimited
-        if ($this->getFeatureValue($featureSlug) == '-1') {
+        if ($value == '-1') {
             return 'Unlimited';
         }
-        return $this->getFeatureValue($featureSlug)  - $this->getFeatureUsage($featureSlug);
+        return $value;
     }
 }
