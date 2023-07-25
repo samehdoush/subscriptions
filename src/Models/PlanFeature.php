@@ -142,7 +142,7 @@ class PlanFeature extends Model implements Sortable
         $this->setTable(config('subscriptions.tables.plan_features'));
         $this->mergeRules([
             'plan_id' => 'required|integer|exists:' . config('subscriptions.tables.plans') . ',id',
-            'slug' => 'required|alpha_dash|max:150|unique:' . config('subscriptions.tables.plan_features') . ',slug',
+            // 'slug' => 'required|alpha_dash|max:150|unique:' . config('subscriptions.tables.plan_features') . ',slug',
             'name' => 'required|string|strip_tags|max:150',
             'description' => 'nullable|string|max:32768',
             'value' => 'required|string',
