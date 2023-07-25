@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Samehdoush\Subscriptions\Traits\BelongsToPlan;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 /**
  * Samehdoush\Subscriptions\Models\PlanFeature.
@@ -54,7 +55,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class PlanFeature extends Model implements Sortable
 {
-    use HasSlug;
+    // use HasSlug;
     use HasFactory;
     use SoftDeletes;
     use BelongsToPlan;
@@ -163,21 +164,12 @@ class PlanFeature extends Model implements Sortable
         static::deleted(function ($plan_feature) {
             $plan_feature->usage()->delete();
         });
+        static::creating(function (Model $model) {
+            $model->slug = Str::slug($model->name);
+        });
     }
 
-    /**
-     * Get the options for generating the slug.
-     *
-     * @return \Spatie\Sluggable\SlugOptions
-     */
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->doNotGenerateSlugsOnUpdate()
-            ->allowDuplicateSlugs()
-            ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug');
-    }
+
 
     /**
      * The plan feature may have many subscription usage.
