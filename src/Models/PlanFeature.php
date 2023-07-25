@@ -174,6 +174,7 @@ class PlanFeature extends Model implements Sortable
     {
         return SlugOptions::create()
             ->doNotGenerateSlugsOnUpdate()
+            ->allowDuplicateSlugs()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }

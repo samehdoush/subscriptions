@@ -243,7 +243,7 @@ class Plan extends Model implements Sortable
      */
     public function getFeatureValue(string $featureSlug)
     {
-        $feature = $this->features()->where('slug', $featureSlug)->first();
+        $feature = $this->features()->where('slug', 'LIKE',$featureSlug)->first();
 
         return $feature->value ?? null;
     }
@@ -305,7 +305,7 @@ class Plan extends Model implements Sortable
      */
     public function getFeatureBySlug(string $featureSlug): ?PlanFeature
     {
-        return $this->features()->where('slug', $featureSlug)->first();
+        return $this->features()->where('slug', 'LIKE',$featureSlug)->first();
     }
 
     /**
