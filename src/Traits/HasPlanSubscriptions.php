@@ -72,7 +72,6 @@ trait HasPlanSubscriptions
     public function planSubscriptionActive(string $subscriptionSlug): ?PlanSubscription
     {
         return $this->planSubscriptions()->whereNull('canceled_at')
-
             ->whereDate('ends_at', '>=', Carbon::now()->toDateString())
             ->where('slug', $subscriptionSlug)->first();
     }
