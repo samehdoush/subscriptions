@@ -118,4 +118,16 @@ trait HasPlanSubscriptions
             'ends_at' => $period->getEndDate(),
         ]);
     }
+    public function newPlanSubscriptionWithOutTrail($subscription, Plan $plan, Carbon $startDate = null): PlanSubscription
+    {
+
+        $period = new Period($plan->invoice_interval, $plan->invoice_period, $startDate ?? now());
+
+        return $this->planSubscriptions()->create([
+            'name' => $subscription,
+            'plan_id' => $plan->getKey(),
+            'starts_at' => $period->getStartDate(),
+            'ends_at' => $period->getEndDate(),
+        ]);
+    }
 }

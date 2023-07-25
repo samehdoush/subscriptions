@@ -162,6 +162,7 @@ $user = User::find(1);
 $plan = \Samehdoush\Subscriptions\Models\Plan::find(1);
 
 $user->newPlanSubscription('main', $plan);
+$user->newPlanSubscriptionWithOutTrail('main', $plan); // without trial
 ```
 
 The first argument passed to `newSubscription` method should be the title of the subscription. If your application offer a single subscription, you might call this `main` or `primary`, while the second argument is the plan instance your user is subscribing to, and there's an optional third parameter to specify custom start date as an instance of `Carbon\Carbon` (by default if not provided, it will start now).
