@@ -537,6 +537,7 @@ class PlanSubscription extends Model
         // Check for available uses
         return $this->getFeatureRemainings($featureSlug) > 0;
     }
+   
 
     /**
      * Get how many times the feature has been used.

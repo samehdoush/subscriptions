@@ -69,6 +69,10 @@ trait HasPlanSubscriptions
     {
         return $this->planSubscriptions()->where('slug', $subscriptionSlug)->first();
     }
+    public function planSubscriptionActive(string $subscriptionSlug): ?PlanSubscription
+    {
+        return $this->planSubscriptions()->whereNull('canceled_at')->where('end_at')->where('slug', $subscriptionSlug)->first();
+    }
 
     /**
      * Get subscribed plans.
