@@ -19,7 +19,7 @@ use Samehdoush\Subscriptions\Traits\BelongsToPlan;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Support\Str;
 /**
  * Samehdoush\Subscriptions\Models\PlanSubscription.
  *
