@@ -67,7 +67,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class PlanSubscription extends Model
 {
-    use HasSlug;
+    // use HasSlug;
     use HasFactory;
     use SoftDeletes;
     use BelongsToPlan;
@@ -155,7 +155,7 @@ class PlanSubscription extends Model
         $this->mergeRules([
             'name' => 'required|string|strip_tags|max:150',
             'description' => 'nullable|string|max:32768',
-            'slug' => 'required|alpha_dash|max:150|unique:' . config('subscriptions.tables.plan_subscriptions') . ',slug',
+            // 'slug' => 'required|alpha_dash|max:150|unique:' . config('subscriptions.tables.plan_subscriptions') . ',slug',
             'plan_id' => 'required|integer|exists:' . config('subscriptions.tables.plans') . ',id',
             'subscriber_id' => 'required|integer',
             'subscriber_type' => 'required|string|strip_tags|max:150',
@@ -185,20 +185,27 @@ class PlanSubscription extends Model
         static::deleted(function ($subscription) {
             $subscription->usage()->delete();
         });
+        static::creating(function (Model $model) {
+            $model->slug = Str::slug($model->name);
+        });
     }
 
-    /**
-     * Get the options for generating the slug.
-     *
-     * @return \Spatie\Sluggable\SlugOptions
-     */
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->doNotGenerateSlugsOnUpdate()
-            ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug');
-    }
+    // /**
+    //  * Get the options for generating the slug.
+    //  *
+    //  * @return \Spatie\Sluggable\SlugOptions
+    //  */
+    // public function getSlugOptions(): SlugOptions
+    // {
+    //     return SlugOptions::create()
+    //         ->doNotGenerateSlugsOnUpdate()
+    //         ->generateSlugsFrom('name')
+    //         ->saveSlugsTo('slug');
+    // }
+
+
+
+
 
     /**
      * Get the owning subscriber.
