@@ -35,7 +35,7 @@ return new class extends Migration
             $table->softDeletes();
 
             // Indexes
-            $table->unique('slug');
+            // $table->unique('slug');
             $table->foreign('plan_id')->references('id')->on(config('subscriptions.tables.plans'))
                 ->onDelete('cascade')->onUpdate('cascade');
         });
