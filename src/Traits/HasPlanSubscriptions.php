@@ -116,7 +116,12 @@ trait HasPlanSubscriptions
         $trial = new Period($plan->trial_interval, $plan->trial_period, $startDate ?? now());
         $period = new Period($plan->invoice_interval, $plan->invoice_period, $trial->getEndDate());
         // change slug old plan
-        $this->planSubscriptions()->update(['slug' => $subscription . '-' . $this->id . '-' . rand(1000, 9999)]);
+        $subs = $this->planSubscriptions();
+        foreach ($subs as $sub) {
+
+            $sub->slug = $sub->slug . '-' . $this->id . '-' . rand(1000, 9999) . '-' . time();
+            $sub->save();
+        }
         return $this->planSubscriptions()->create([
             'name' => $subscription,
             'plan_id' => $plan->getKey(),
@@ -129,7 +134,12 @@ trait HasPlanSubscriptions
     {
 
         $period = new Period($plan->invoice_interval, $plan->invoice_period, $startDate ?? now());
-        $this->planSubscriptions()->update(['slug' => $subscription . '-' . $this->id . '-' . rand(1000, 9999)]);
+        $subs = $this->planSubscriptions();
+        foreach ($subs as $sub) {
+
+            $sub->slug = $sub->slug . '-' . $this->id . '-' . rand(1000, 9999) . '-' . time();
+            $sub->save();
+        }
         return $this->planSubscriptions()->create([
             'name' => $subscription,
             'plan_id' => $plan->getKey(),
