@@ -118,7 +118,7 @@ trait HasPlanSubscriptions
         // change slug old plan
         $subs = $this->planSubscriptions()->where('slug', 'main')->get();
         foreach ($subs as $sub) {
-
+            $sub->usage()->forceDelete();
             $sub->slug = $sub->slug . '-' . $this->id . '-' . rand(1000, 9999) . '-' . time();
             $sub->save();
         }
@@ -136,7 +136,7 @@ trait HasPlanSubscriptions
         $period = new Period($plan->invoice_interval, $plan->invoice_period, $startDate ?? now());
         $subs = $this->planSubscriptions()->where('slug', 'main')->get();
         foreach ($subs as $sub) {
-
+            $sub->usage()->forceDelete();
             $sub->slug = $sub->slug . '-' . $this->id . '-' . rand(1000, 9999) . '-' . time();
             $sub->save();
         }
