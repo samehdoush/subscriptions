@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
+
 /**
  * Samehdoush\Subscriptions\Models\PlanSubscription.
  *
@@ -570,7 +571,7 @@ class PlanSubscription extends Model
     public function getFeatureRemainings(string $featureSlug): int
     {
         // if $this->getFeatureValue($featureSlug) equals -1 then it's unlimited
-        if ($this->getFeatureValue($featureSlug) == '-1' || $this->getFeatureValue($featureSlug) == -1) {
+        if ($this->getFeatureValue($featureSlug) === '-1' || $this->getFeatureValue($featureSlug) === -1) {
             return 999999999;
         }
         return $this->getFeatureValue($featureSlug)  - $this->getFeatureUsage($featureSlug);
