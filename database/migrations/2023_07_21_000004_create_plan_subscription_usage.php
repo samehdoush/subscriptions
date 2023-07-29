@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['subscription_id', 'feature_id']);
+            // $table->unique(['subscription_id', 'feature_id']);
             $table->foreign('subscription_id')->references('id')->on(config('subscriptions.tables.plan_subscriptions'))
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('feature_id')->references('id')->on(config('subscriptions.tables.plan_features'))
