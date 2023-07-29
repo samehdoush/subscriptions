@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
-
 /**
  * Samehdoush\Subscriptions\Models\PlanSubscription.
  *
@@ -313,7 +312,7 @@ class PlanSubscription extends Model
         // a new billing cycle, the usage data will be cleared.
         if ($this->plan->invoice_interval !== $plan->invoice_interval || $this->plan->invoice_period !== $plan->invoice_period) {
             $this->setNewPeriod($plan->invoice_interval, $plan->invoice_period);
-            $this->usage()->forceDelete();
+            $this->usage()->delete();
         }
 
         // Attach new plan to subscription
