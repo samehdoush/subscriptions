@@ -507,7 +507,7 @@ class PlanSubscription extends Model
      */
     public function reduceFeatureUsage(string $featureSlug, int $uses = 1): ?PlanSubscriptionUsage
     {
-        $usage = $this->usage()->byFeatureSlug($featureSlug)->first();
+        $usage = $this->usage()->byFeatureSlug($featureSlug,$this->plan_id)->first();
 
         if (is_null($usage)) {
             return null;
@@ -530,7 +530,7 @@ class PlanSubscription extends Model
     public function canUseFeature(string $featureSlug): bool
     {
         $featureValue = $this->getFeatureValue($featureSlug);
-        $usage = $this->usage()->byFeatureSlug($featureSlug)->first();
+        $usage = $this->usage()->byFeatureSlug($featureSlug,$this->plan_id)->first();
 
         if ($featureValue === 'true') {
             return true;
