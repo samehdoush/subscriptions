@@ -556,7 +556,7 @@ class PlanSubscription extends Model
      */
     public function getFeatureUsage(string $featureSlug): int
     {
-        $usage = $this->usage()->byFeatureSlug($featureSlug)->first();
+        $usage = $this->usage()->byFeatureSlug($featureSlug, $this->plan_id)->first();
 
         return (!$usage || $usage->expired()) ? 0 : $usage->used;
     }
@@ -571,7 +571,7 @@ class PlanSubscription extends Model
     public function getFeatureRemainings(string $featureSlug): int
     {
         // if $this->getFeatureValue($featureSlug) equals -1 then it's unlimited
-        if ($this->getFeatureValue($featureSlug) === '-1' || $this->getFeatureValue($featureSlug) === -1) {
+        if ($this->getFeatureValue($featureSlug) == '-1' || $this->getFeatureValue($featureSlug) == -1) {
             return 999999999;
         }
         return $this->getFeatureValue($featureSlug)  - $this->getFeatureUsage($featureSlug);

@@ -133,10 +133,10 @@ class PlanSubscriptionUsage extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeByFeatureSlug(Builder $builder, string $featureSlug): Builder
+    public function scopeByFeatureSlug(Builder $builder, string $featureSlug, $plan_id): Builder
     {
-        $feature = config('subscriptions.models.plan_feature')::where('slug', $featureSlug)->first();
-
+        $feature = config('subscriptions.models.plan_feature')::where('slug', $featureSlug)->where('plan_id', $plan_id)->first();
+        // dd($feature);
         return $builder->where('feature_id', $feature ? $feature->getKey() : null);
     }
 
