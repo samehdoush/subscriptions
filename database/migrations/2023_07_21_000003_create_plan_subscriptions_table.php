@@ -31,6 +31,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+
         Schema::dropIfExists(config('subscriptions.tables.plan_subscriptions'));
     }
 
