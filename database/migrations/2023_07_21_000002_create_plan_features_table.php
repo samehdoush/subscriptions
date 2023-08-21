@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json('name');
             $table->json('description')->nullable();
             $table->string('value');
-            $table->smallInteger('resettable_period')->unsigned()->default(0);
+            $table->integer('resettable_period')->unsigned()->default(0);
             $table->string('resettable_interval')->default('month');
             $table->mediumInteger('sort_order')->unsigned()->default(0);
             $table->timestamps();

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('subscription_id')->unsigned();
             $table->integer('feature_id')->unsigned();
-            $table->smallInteger('used')->unsigned();
+            $table->integer('used')->unsigned();
             $table->dateTime('valid_until')->nullable();
             $table->string('timezone')->nullable();
             $table->timestamps();
